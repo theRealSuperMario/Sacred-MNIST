@@ -4,11 +4,18 @@ from __future__ import division, print_function, unicode_literals
 from sacred import Experiment
 from sacred.observers import MongoObserver
 from sacred.utils import apply_backspaces_and_linefeeds
+import os
 
+def get_exname():
+    ex_name = os.path.basename(os.path.dirname(os.path.abspath(__file__)))
+    return ex_name
 
-ex = Experiment("MNIST-Convnet")
+ex = Experiment(get_exname())
 ex.observers.append(MongoObserver.create())
 ex.captured_out_filter = apply_backspaces_and_linefeeds
+
+
+
 
 
 @ex.config
